@@ -21,7 +21,8 @@
 		"test": "./test"
 	},
 	"dependencies": {
-
+		"node-oops": "~0.1.x",
+		"dbc.js": "~1.0.x",
 	},
 	"devDependencies": {
 		"expect.js": "~0.2.x",
