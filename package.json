@@ -34,7 +34,5 @@
 	"readmeFilename": "README.md",
 	"bugs": {
 		"url": "https://github.com/netsteps/claims/issues"
-	},
-	"_id": "claims@0.1.0",
-  "_from": "riakio@git://github.com/netsteps/claims.git#master"
+	}
 }
