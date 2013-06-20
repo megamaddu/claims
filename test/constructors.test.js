@@ -15,14 +15,14 @@ var claimOptions = {
 , claim = new Claim(claimOptions)
 ;
 
-describe('A Claim should', function() {
-	it('build and properly return set values', function() {
+describe('when a `claim` object is constructed', function() {
+	it('it builds and properly returns set values', function() {
 		expect(claim.id).to.be(claimOptions.id);
 		expect(claim.kind).to.be(claimOptions.kind);
 		expect(claim.name).to.be(claimOptions.name);
 		expect(claim.value).to.be(claimOptions.value);
 	});
-	it('return json from toJson', function() {
+	it('it returns json from toJson', function() {
 		var expectedResult = JSON.stringify(claimOptions);
 		expect(claim.toJson()).to.be(expectedResult);
 	});
@@ -37,14 +37,14 @@ var claimsetOptions = {
 , claimset = new Claimset(claimsetOptions);
 ;
 
-describe('A Claimset should', function() {
-	it('build and properly return set values', function() {
+describe('when a `claimset` object is constructed', function() {
+	it('it builds and properly returns set values', function() {
 		expect(claimset.id).to.be(claimsetOptions.id);
 		expect(claimset.claims).to.be(claimsetOptions.claims);
 		expect(claimset.name).to.be(claimsetOptions.name);
 		expect(claimset.provider).to.be(claimsetOptions.provider);
 	});
-	it('return json from tojson', function() {
+	it('it returns json from tojson', function() {
 		var expectedresult = JSON.stringify(claimsetOptions);
 		expect(claimset.toJson()).to.be(expectedresult);
 	});
@@ -61,8 +61,8 @@ var claimsOptions = {
 , claims = new Claims(claimsOptions);
 ;
 
-describe('A Claims structure should', function() {
-	it('build and properly return set values', function() {
+describe('when a `claims` object is constructed', function() {
+	it('it builds and properly returns set values', function() {
 		expect(claims.version).to.be(claimsOptions.version);
 		expect(claims.claimsets).to.be(claimsOptions.claimsets);
 		expect(claims.expiration).to.be(claimsOptions.expiration);
@@ -70,7 +70,7 @@ describe('A Claims structure should', function() {
 		expect(claims.encoded).to.be(claimsOptions.encoded);
 		expect(claims.verified).to.be(claimsOptions.verified);
 	});
-	it('return json from tojson', function() {
+	it('it returns json from tojson', function() {
 		var expectedresult = JSON.stringify(claimsOptions);
 		expect(claims.toJson()).to.be(expectedresult);
 	});
