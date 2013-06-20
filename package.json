@@ -28,6 +28,7 @@
 		"extend": "1.1.x"
 	},
 	"devDependencies": {
+		"nconf": ">0.6.7",
 		"expect.js": "~0.2.x",
 		"mocha": "~1.10.x"
 	},
