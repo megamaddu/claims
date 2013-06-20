@@ -6,8 +6,8 @@ describe('claims', function() {
 
 	describe('when the `claims` module is imported', function() {
 
-		it('it exports #signature', function() {
-			expect(claims).to.have.property('signature');
+		it('it exports #signer', function() {
+			expect(claims).to.have.property('signer');
 		});
 
 		it('it exports #ticket', function() {
