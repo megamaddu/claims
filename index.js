@@ -1,3 +1,22 @@
-'use strict';
+var lib = require('./lib')
+, extend = require('extend')
+;
 
-module.exports.parser = require('./lib/parser').parser;
+function isConfigured() {
+	return lib.isConfigured;
+}
+
+function $init($config) {
+	if (typeof $config !== 'undefined' && !isConfigured()) {
+		lib($config);
+	}
+}
+
+extend($init, lib);
+
+Object.defineProperty($init, 'isConfigured', {
+	get: isConfigured,
+	enumerable: true
+});
+
+module.exports = $init;
