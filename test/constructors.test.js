@@ -51,7 +51,8 @@ describe('A Claimset should', function() {
 });
 
 var claimsOptions = {
-		claimsets: [claimset]
+		version: '1'
+	,	claimsets: [claimset]
 	, expiration: new Date()
 	, signature: '1234'
 	, encoded: 'asdf'
@@ -62,6 +63,7 @@ var claimsOptions = {
 
 describe('A Claims structure should', function() {
 	it('build and properly return set values', function() {
+		expect(claims.version).to.be(claimsOptions.version);
 		expect(claims.claimsets).to.be(claimsOptions.claimsets);
 		expect(claims.expiration).to.be(claimsOptions.expiration);
 		expect(claims.signature).to.be(claimsOptions.signature);

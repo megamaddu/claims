@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./lib/claim');
+module.exports.parser = require('./lib/parser').parser;

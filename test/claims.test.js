@@ -1,9 +1,12 @@
-'use strict';
+// 'use strict';
 
-// describe('Claim', function() {
-// 	var Claim = require('../lib/claim').Claim;
+// var expect = require('expect')
+// , parser = require('../').parser
+// ;
+
+// describe('The Claims parser should', function() {
 // 	var ticketStr = 'mialc1#0.0f,e.08;0-01.TlM=-02.WFk=-08:MTIzNDU=;2013-06-30T18:38:36.480Z|MC4wZixlLjA4OzAtMDEuVGxNPS0wMi5XRms9LTA4Ok1USXpORFU9OzIwMTMtMDYtMzBUMTg6Mzg6MzYuNDgwWg==';
-// 	var claim = new Claim(ticketStr);
+// 	var claim = parser.decode(ticketStr);
 
 // 	it('expiry call matches timestamp', function() {
 // 		if (new Date() < new Date(claim._timestamp)) {
