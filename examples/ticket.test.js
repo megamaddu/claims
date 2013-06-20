@@ -9,5 +9,4 @@ console.log(claim.expired());
 console.log(claim);
 console.log(claim.toString());
 
-debugger;
 console.log(claim.hasRole(0x0, 0x01));
