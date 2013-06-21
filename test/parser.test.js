@@ -1,15 +1,10 @@
 'use strict';
 
-var claims = require('..')
-, path = require('path')
-// this sample requires that development dependencies are present
-, config = require('nconf')
+var helper = require('./claims_setup.helper')
+, claims = helper.claims
+, keyName = helper.keyName
 , expect = require('expect.js')
 ;
-
-// load the config from a file...
-config.file(path.resolve('./test/test_config.json'));
-claims(config);
 
 var preamble = 'mialc'
 , version = '1'
@@ -29,7 +24,7 @@ var preamble = 'mialc'
 describe('claims parser', function() {
 	describe('when `decode` is passed a valid claims token', function() {
 		it('it correctly parses values from a claims ticket', function() {
-			var c = claims.parse(ticketStr, 'global');
+			var c = claims.parse(ticketStr, keyName);
 			expect(c).to.be.ok();
 			expect(c.version).to.be(version);
 			expect(c.expiration.getTime()).to.be(new Date(timestamp).getTime());
