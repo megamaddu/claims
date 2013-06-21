@@ -1,9 +1,9 @@
 'use strict';
 
 var expect = require('expect.js')
-, Claim = require('../lib/claim').Claim
-, Claimset = require('../lib/claimset').Claimset
-, Claims = require('../lib/claims').Claims
+, Claim = require('../lib/claim')
+, Claimset = require('../lib/claimset')
+, Claims = require('../lib/claims')
 ;
 
 var claimOptions = {

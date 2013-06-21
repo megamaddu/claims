@@ -12,8 +12,8 @@ describe('when the `claims` module is imported', function() {
 		expect(claims).to.have.property('verifier');
 	});
 
-	it('it exports #parser', function() {
-		expect(claims).to.have.property('parser');
+	it('it exports #parse function', function() {
+		expect(claims).to.have.property('parse');
 	});
 
 });
