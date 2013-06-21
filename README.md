@@ -9,7 +9,7 @@ Claims-based authorization is a natural successor to role-based security. It is 
 
 Implicit in this claims-based model, a _claims ticket_ flows across the entire call-stack (or request chain). This module does not deal with how the _claims ticket_ is communicated, it allows clients to reason about them once they have one in hand.
 
-This module handle's round-trip encoding of claims into _claims tickets_. Its primary use is to decodes a claims ticket, verify its content is trusted, and put the content into an easy to use `Claims` object. The `Claims` object can be interrogated to inform business logic about a user's identity, permissions, and security related facts.
+This module handle's round-trip encoding of claims into _claims tickets_. Its primary use is to decode the ticket, verify the ticket's content is trusted, and put the content into an easy to use `Claims` object. After being decoded, the `Claims` object can be interrogated to inform business logic about a user's identity, permissions, and security related facts.
 
 From an independent service's perspective, this module provides the means by which it can trust the identity of users and their claims.
 
