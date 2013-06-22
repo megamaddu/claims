@@ -14,8 +14,8 @@ claims(config);
 var preamble = 'mialc'
 , version = '1'
 , claimset = '0.0f,e.08;0-01.TlM=-02.WFk=-08:MTIzNDU='
-, timestamp = '2013-06-30T18:38:36.480Z'
-, signature = 'RcoumNDODR4VCpD8SvB8HSGZ0f49+pgyl7k+UqOMTV4PjgFDJVxIAKQbvDc+1xBKEWJgiIrEGnj9nfhQhGLHfUdwSHHPh9qcczNvZeUAxggj1ngUMyMCtDzS745/lqvt9yBkbpwspftd8i1vlBpfQR/n0G0nsGNixn1MSK4JnfBn254FAT2W7DsYBJ9JdO7lkQsFRKw7DTVFsRtMQ7yvUkImX7g0cKkE7ae4GKDoGhcHHdEz9Z6N8Zpn/Jab/g0JabO6qquHBhTDonwkM5cjrDmgc0Q/9splehetpH5xpNNYXueC+jSJo4ciPt28B+72ST16Q3qOx34flLg1tSrVNQ=='
+, timestamp = '3000-06-30T18:38:36.480Z'
+, signature = 't4LwkkKavN/73Btakwl6B0upFPeOhDfOYOjVMdh9Q8gYwlqJcCnlrLwU0gTQhlyuZpsMqxuOW4fxxZ1G9cOfm9urASiOpm5XcNYJo2Tr9Euko1+uwIzBrHIcCB30RASJXWry84mfGgy7EC2eL7M1vzxoRT+ESdIWR94TOmIqua66cRfeu434TgnGtikguTvAm5es0INvCBpBjsZPue4rWWcHLOzO40O9IUHKtMh0ouf4Xa27uU+KTf8Jkvk1M8yAGBLcyJX4l05exX08j08yJzW8KHCG91UY0HX8yGas54bwwPJU2JC4TAMo0KaWpHIcXML4Swbay201+KDtYzTscQ=='
 , ticketStr = preamble
 	.concat(version)
 	.concat('#')
@@ -29,7 +29,7 @@ var preamble = 'mialc'
 var claims = claims.parse(ticketStr, 'global');
 expect(claims).to.be.ok();
 expect(claims.version).to.be(version);
-expect(claims.expiration.getTime()).to.be(new Date(timestamp).getTime());
+expect(new Date(claims.expiration).getTime()).to.be(new Date(timestamp).getTime());
 expect(claims.signature).to.be(signature);
 expect(claims.encoded).to.be(ticketStr);
 expect(claims.verified).to.be(true);
