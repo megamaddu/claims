@@ -27,6 +27,7 @@ var claims = parse(ticketStr, keyName)
 ;
 
 describe('claims logic', function() {
+
 	describe('when `has` is called', function() {
 		it('it returns true when all the roles exists', function() {
 			expect(claims.has(0x0, 0x0f)).to.be(true);
@@ -47,9 +48,10 @@ describe('claims logic', function() {
 			expect(claims.has('e.9')).to.be(false);
 		});
 	});
-	describe('when `get` is called', function() {
+
+	describe('when `get` is called with full-claim reference', function() {
 		it('it returns a claimset when it exists', function() {
-			claimset = claims.get('0');
+			claimset = claims.get('0.2');
 			var claimset2 = claims.get(0);
 			expect(claimset2).to.be.ok();
 			expect(claimset).to.be.ok();
@@ -59,6 +61,20 @@ describe('claims logic', function() {
 			expect(function() { claims.get('f'); }).to.throwError();
 		});
 	});
+
+	describe('when `get` is called with claimset id and claim id', function() {
+		it('it returns a claimset when it exists', function() {
+			claimset = claims.get(0, 2);
+			var claimset2 = claims.get(0);
+			expect(claimset2).to.be.ok();
+			expect(claimset).to.be.ok();
+			expect(claimset.id).to.be(0);
+		});
+		it('it throws when the claimset does not exist', function() {
+			expect(function() { claims.get('f'); }).to.throwError();
+		});
+	});
+
 });
 
 describe('claimset logic', function() {
