@@ -24,32 +24,24 @@ var preamble = 'mialc'
 var claims = parse(ticketStr, keyName);
 
 describe('claims logic', function() {
-	describe('when `hasAllRoles` is called', function() {
+	describe('when `has` is called', function() {
 		it('it returns true when all the roles exists', function() {
-			expect(claims.hasAllRoles(0x0, 0x0f)).to.be(true);
-			expect(claims.hasAllRoles(0x0, 0x02)).to.be(true);
+			expect(claims.has(0x0, 0x0f)).to.be(true);
+			expect(claims.has(0x0, 0x02)).to.be(true);
+			expect(claims.has('0.0f')).to.be(true);
+			expect(claims.has('0.02')).to.be(true);
 		});
 		it('it returns false when none of the roles exist', function() {
-			expect(claims.hasAllRoles(0xe, 0x02)).to.be(false);
-			expect(claims.hasAllRoles(0xe, 0x01)).to.be(false);
+			expect(claims.has(0xe, 0x02)).to.be(false);
+			expect(claims.has(0xe, 0x01)).to.be(false);
+			expect(claims.has('e.2')).to.be(false);
+			expect(claims.has('e.1')).to.be(false);
 		});
 		it('it returns false when one of the roles does not exist', function() {
-			expect(claims.hasAllRoles(0x0, 0x1f)).to.be(false);
-			expect(claims.hasAllRoles(0xe, 0x09)).to.be(false);
-		});
-	});
-	describe('when `hasAnyRoles` is called', function() {
-		it('it returns true when any of the roles exists', function() {
-			expect(claims.hasAnyRoles(0x0, 0x0f)).to.be(true);
-			expect(claims.hasAnyRoles(0x0, 0x02)).to.be(true);
-		});
-		it('it returns false when none of the roles exist', function() {
-			expect(claims.hasAnyRoles(0xe, 0x02)).to.be(false);
-			expect(claims.hasAnyRoles(0xe, 0x01)).to.be(false);
-		});
-		it('it returns true when at least one of the roles exists', function() {
-			expect(claims.hasAnyRoles(0x0, 0x1f)).to.be(true);
-			expect(claims.hasAnyRoles(0xe, 0x09)).to.be(true);
+			expect(claims.has(0x0, 0x1f)).to.be(false);
+			expect(claims.has(0xe, 0x09)).to.be(false);
+			expect(claims.has('0.1f')).to.be(false);
+			expect(claims.has('e.9')).to.be(false);
 		});
 	});
 });
