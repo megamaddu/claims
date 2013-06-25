@@ -21,7 +21,10 @@ var preamble = 'mialc'
 	.concat(signature)
 ;
 
-var claims = parse(ticketStr, keyName);
+var claims = parse(ticketStr, keyName)
+, claimset = undefined
+, claim = undefined
+;
 
 describe('claims logic', function() {
 	describe('when `has` is called', function() {
@@ -42,6 +45,33 @@ describe('claims logic', function() {
 			expect(claims.has(0xe, 0x09)).to.be(false);
 			expect(claims.has('0.1f')).to.be(false);
 			expect(claims.has('e.9')).to.be(false);
+		});
+	});
+	describe('when `get` is called', function() {
+		it('it returns a claimset when it exists', function() {
+			claimset = claims.get('0');
+			var claimset2 = claims.get(0);
+			expect(claimset2).to.be.ok();
+			expect(claimset).to.be.ok();
+			expect(claimset.id).to.be(0);
+		});
+		it('it throws when the claimset does not exist', function() {
+			expect(function() { claims.get('f'); }).to.throwError();
+		});
+	});
+});
+
+describe('claimset logic', function() {
+	it('when `get` is called', function() {
+		it('it returns a claim/role when it exists', function() {
+			claim = claimset.get('0');
+			var claim2 = claimset.get(0);
+			expect(claim2).to.be.ok();
+			expect(claim).to.be.ok();
+			expect(claim.id).to.be(0);
+		});
+		it('it throws when the claim/role does not exist', function() {
+			expect(function() { claimset.get('fff'); }).to.throwError();
 		});
 	});
 });
