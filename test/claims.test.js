@@ -22,25 +22,26 @@ var preamble = 'mialc'
 ;
 
 var claims = parse(ticketStr, keyName)
-, claimset = undefined
-, claim = undefined
 ;
 
 describe('claims logic', function() {
 
 	describe('when `has` is called', function() {
+
 		it('it returns true when all the roles exists', function() {
 			expect(claims.has(0x0, 0x0f)).to.be(true);
 			expect(claims.has(0x0, 0x02)).to.be(true);
 			expect(claims.has('0.0f')).to.be(true);
 			expect(claims.has('0.02')).to.be(true);
 		});
+
 		it('it returns false when none of the roles exist', function() {
 			expect(claims.has(0xe, 0x02)).to.be(false);
 			expect(claims.has(0xe, 0x01)).to.be(false);
 			expect(claims.has('e.2')).to.be(false);
 			expect(claims.has('e.1')).to.be(false);
 		});
+
 		it('it returns false when one of the roles does not exist', function() {
 			expect(claims.has(0x0, 0x1f)).to.be(false);
 			expect(claims.has(0xe, 0x09)).to.be(false);
@@ -49,45 +50,32 @@ describe('claims logic', function() {
 		});
 	});
 
-	describe('when `get` is called with full-claim reference', function() {
-		it('it returns a claimset when it exists', function() {
-			claimset = claims.get('0.2');
-			var claimset2 = claims.get(0);
-			expect(claimset2).to.be.ok();
-			expect(claimset).to.be.ok();
-			expect(claimset.id).to.be(0);
+	describe('when `get` is called with full-claim value reference', function() {
+
+		it('it returns a claim value when it exists', function() {
+			expect(claims.get('0.2')).to.be('XY');
 		});
-		it('it throws when the claimset does not exist', function() {
-			expect(function() { claims.get('f'); }).to.throwError();
+
+		it('it returns undefined when the claim value does not exist', function() {
+			expect(claims.get('f.1')).to.be(undefined);
 		});
 	});
 
-	describe('when `get` is called with claimset id and claim id', function() {
-		it('it returns a claimset when it exists', function() {
-			claimset = claims.get(0, 2);
-			var claimset2 = claims.get(0);
-			expect(claimset2).to.be.ok();
-			expect(claimset).to.be.ok();
-			expect(claimset.id).to.be(0);
+	describe('when `get` is called with claim id and claim id', function() {
+
+		it('it returns a claim value when it exists', function() {
+			expect(claims.get(0, 2)).to.be('XY');
+			expect(claims.get('0', 2)).to.be('XY');
+			expect(claims.get(0, '2')).to.be('XY');
+			expect(claims.get('0', '2')).to.be('XY');
 		});
-		it('it throws when the claimset does not exist', function() {
-			expect(function() { claims.get('f'); }).to.throwError();
+
+		it('it returns undefined when the claim value does not exist', function() {
+			expect(claims.get(0xf, 1)).to.be(undefined);
+			expect(claims.get('f', 1)).to.be(undefined);
+			expect(claims.get(0xf, '1')).to.be(undefined);
+			expect(claims.get('0xf', '1')).to.be(undefined);
 		});
 	});
 
-});
-
-describe('claimset logic', function() {
-	it('when `get` is called', function() {
-		it('it returns a claim/role when it exists', function() {
-			claim = claimset.get('0');
-			var claim2 = claimset.get(0);
-			expect(claim2).to.be.ok();
-			expect(claim).to.be.ok();
-			expect(claim.id).to.be(0);
-		});
-		it('it throws when the claim/role does not exist', function() {
-			expect(function() { claimset.get('fff'); }).to.throwError();
-		});
-	});
 });
