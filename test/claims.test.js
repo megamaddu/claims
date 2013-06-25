@@ -8,9 +8,9 @@ var helper = require('./claims_setup.helper')
 
 var preamble = 'mialc'
 , version = '1'
-, claimset = '0.0f,e.08;0-01.TlM=-02.WFk=-08:MTIzNDU='
+, claimset = '0.f,e.8;0.1:TlM=.2:WFk=.4:bnM=.8:cHdz.10:MTIzNDU=.20:GVzdEBlbWFpbC5jb20=,e.8:dGVzdFZhbHVl'
 , timestamp = '3000-06-30T18:38:36.480Z'
-, signature = 't4LwkkKavN/73Btakwl6B0upFPeOhDfOYOjVMdh9Q8gYwlqJcCnlrLwU0gTQhlyuZpsMqxuOW4fxxZ1G9cOfm9urASiOpm5XcNYJo2Tr9Euko1+uwIzBrHIcCB30RASJXWry84mfGgy7EC2eL7M1vzxoRT+ESdIWR94TOmIqua66cRfeu434TgnGtikguTvAm5es0INvCBpBjsZPue4rWWcHLOzO40O9IUHKtMh0ouf4Xa27uU+KTf8Jkvk1M8yAGBLcyJX4l05exX08j08yJzW8KHCG91UY0HX8yGas54bwwPJU2JC4TAMo0KaWpHIcXML4Swbay201+KDtYzTscQ=='
+, signature = 'L8i/v+4hVaBUQuuOIB+X689PGb+2U21BdWWpok7iim3je0je3hdZT4RyCcK7125igOs3FZzkigus9v5fqqR7fqoXp9VetVHbkrMkR6k5B2gGg6D2dMhqokkLQgGTyP6x/q5kxHz3b3YoAUoFyFLvbNZ4ke1YoGDejfRFGbSNBoPgXtrPDXhzczbvu8rNBSPHQDgnaQgvCVxcxtwvOtqWYUCaX1Mor5hwj3v/eGrmtKqc1q3i1OSZpBT7ELOxkdwQEFivWi8wUUl95D3Qg/XfN7O3RycjBbyWptI/ObMV3dCAdWaqG2Jr87qofA1C6ufVdnW4fjlW/7/G2E3Sz/XZ5g=='
 , ticketStr = preamble
 	.concat(version)
 	.concat('#')
