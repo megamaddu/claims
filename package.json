@@ -25,7 +25,8 @@
 	"dependencies": {
 		"dbc.js": "1.0.x",
 		"hooked": "0.1.x",
-		"extend": "1.1.x"
+		"extend": "1.1.x",
+		"jsonschema": "0.3.x"
 	},
 	"devDependencies": {
 		"nconf": "~0.6.x",

@@ -1,0 +1,56 @@
+{
+	"type": "object",
+	"id": "/",
+	"required":true,
+	"properties":{
+		"claimsets": {
+			"type": "object",
+			"id": "/claimsets",
+			"additionalProperties": {
+				"type": "object",
+				"id": "/claimsets/claimset",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"required": true
+					},
+					"claims": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "object",
+							"id": "/claimsets/claim",
+							"properties": {
+								"id": {
+									"type": "integer",
+									"required": true
+								},
+								"kind": {
+									"type": "string",
+									"required": true,
+									"pattern": "^[rfiu]$"
+								},
+								"name": {
+									"type": "string"
+								},
+								"value": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}	
+			}
+		},
+		"expiration": {
+			"type": "string",
+			"id": "/expiration",
+			"required":true,
+			"format": "date-time"
+		},
+		"version": {
+			"type": "string",
+			"id": "/version",
+			"required":true
+		}
+	}
+}
