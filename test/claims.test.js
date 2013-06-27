@@ -78,23 +78,22 @@ describe('claims logic', function() {
 		});
 	});
 
-	describe('when `get` is called with claim id and claim id and resolve is set', function() {
+	// describe('when `get` is called with claim id and claim id and resolve is set', function() {
 
-		it('it returns a claim value when it is not an embedded value but can be resolved', function() {
-			expect().to.be.ok(); // not written yet
-		});
+	// 	it('it raeturns a claim value when it is not an embedded value but can be resolved', function() {
+	// 		// resolver not written yet
+	// 	});
 
-		it('it returns undefined when the claim value is not embedded and claims has no resolver', function() {
-			// assuming no resolver for now
-			expect(claims.get('e', '8', true)).to.be(undefined);
-		});
-	});
+	// 	it('it returns undefined when the claim value is not embedded and claims has no resolver', function() {
+	// 		// resolver not written yet
+	// 	});
+	// });
 
 	describe('when `resolve` is called with claim id and claim id', function() {
 
-		it('it returns a claim value when it exists and can be resolved', function() {
-			expect().to.be.ok(); // not written yet
-		});
+		// it('it returns a claim value when it exists and can be resolved', function() {
+		// 	// resolver not written yet
+		// });
 
 		it('it returns undefined when the claim value does not exist', function() {
 			// not an accurate test until a resolver has been set up
