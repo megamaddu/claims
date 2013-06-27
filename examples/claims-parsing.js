@@ -26,6 +26,7 @@ var preamble = 'mialc'
 	.concat(signature)
 ;
 
+debugger;
 var claims = claims.parse(ticketStr, 'global');
 expect(claims).to.be.ok();
 expect(claims.version).to.be(version);

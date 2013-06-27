@@ -28,7 +28,7 @@ describe('claims logic', function() {
 
 	describe('when `has` is called', function() {
 
-		it('it returns true when all the roles exists', function() {
+		it('it returns true when all the roles exist', function() {
 			expect(claims.has(0x0, 0x0f)).to.be(true);
 			expect(claims.has(0x0, 0x02)).to.be(true);
 			expect(claims.has('0.0f')).to.be(true);
