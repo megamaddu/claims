@@ -4,6 +4,7 @@ var helper = require('./claims_setup.helper')
 , claims = helper.claims
 , keyName = helper.keyName
 , expect = require('expect.js')
+, claimsJson = require('./parser.claims.test.json')
 ;
 
 var preamble = 'mialc'
@@ -22,7 +23,9 @@ var preamble = 'mialc'
 ;
 
 describe('claims parser', function() {
+
 	describe('when `decode` is passed a valid claims token', function() {
+
 		it('it correctly parses values from a claims ticket', function() {
 			var c = claims.parse(ticketStr, keyName);
 			expect(c).to.be.ok();
@@ -31,6 +34,29 @@ describe('claims parser', function() {
 			expect(c.signature).to.be(signature);
 			expect(c.encoded).to.be(ticketStr);
 			expect(c.verified).to.be(true);
+		});
+	});
+
+	describe('when `from` is passed a valid claims structure', function() {
+
+		it('it correctly builds claims objects from json objects', function() {
+			var c = claims.from(claimsJson);
+			expect(c).to.be.ok();
+			expect(c.version).to.be(version);
+			expect(new Date(c.expiration).getTime()).to.be(new Date(timestamp).getTime());
+			// expect(c.signature).to.be(signature);
+			// expect(c.encoded).to.be(ticketStr);
+			// expect(c.verified).to.be(true);
+		});
+
+		it('it correctly builds claims objects from a json string', function() {
+			var c = claims.from(JSON.stringify(claimsJson));
+			expect(c).to.be.ok();
+			expect(c.version).to.be(version);
+			expect(new Date(c.expiration).getTime()).to.be(new Date(timestamp).getTime());
+			// expect(c.signature).to.be(signature);
+			// expect(c.encoded).to.be(ticketStr);
+			// expect(c.verified).to.be(true);
 		});
 	});
 });

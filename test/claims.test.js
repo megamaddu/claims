@@ -85,7 +85,7 @@ describe('claims logic', function() {
 	// 	});
 
 	// 	it('it returns undefined when the claim value is not embedded and claims has no resolver', function() {
-	// 		// resolver not written yet
+	// 		// resolver not written yet	
 	// 	});
 	// });
 
