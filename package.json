@@ -1,41 +1,38 @@
 {
-	"name": "claims",
-	"version": "0.1.0",
-	"author": {
-		"name": "Michael Trotter",
-		"email": "spicydonuts@gmail.com"
-	},
-	"description": "API client for federated claims-based security, including parsing and validating claims tickets and interacting with claims authorities.",
-	"keywords": [
-		"claim",
-		"claims",
-		"ticket",
-		"identity",
-		"authorization"
-	],
-	"main": "index.js",
-	"directories": {
-		"example": "examples",
-		"lib": "lib",
-		"test": "test"
-	},
-	"scripts": {
-			"test": "mocha -R spec"
-	},
-	"dependencies": {
-		"dbc.js": "1.0.x",
-		"hooked": "0.1.x",
-		"extend": "1.1.x",
-		"jsonschema": "0.3.x"
-	},
-	"devDependencies": {
-		"nconf": "~0.6.x",
-		"expect.js": "~0.2.x",
-		"mocha": "~1.10.x"
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/netsteps/claims"
-	}
+  "name": "claims",
+  "version": "0.2.0",
+  "author": {
+    "name": "Michael Trotter",
+    "email": "spicydonuts@gmail.com"
+  },
+  "description": "API client for federated claims-based security, including parsing and validating claims tickets and interacting with claims authorities.",
+  "keywords": [
+    "claim",
+    "claims",
+    "ticket",
+    "identity",
+    "authorization"
+  ],
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "dependencies": {
+    "extend": "~1.1.3",
+    "jsonschema": "0.3.x"
+  },
+  "devDependencies": {
+    "expect.js": "~0.2.x",
+    "mocha": "~1.10.x"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/netsteps/claims"
+  }
 }

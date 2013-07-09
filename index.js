@@ -1,22 +1,30 @@
-var lib = require('./lib')
+'use strict';
+
+var claims = require('./lib')
 , extend = require('extend')
+, _options = {}
 ;
 
-function isConfigured() {
-	return lib.isConfigured;
-}
-
-function $init($config) {
-	if (typeof $config !== 'undefined' && !isConfigured()) {
-		lib($config);
+module.exports = function $init($claimsOptions, callback) {
+	var options;
+	if ('string' === typeof $claimsOptions) {
+		options = extend({ ticket: $claimsOptions }, _options);
+		return claims.parse(options, callback);
 	}
-}
-
-extend($init, lib);
-
-Object.defineProperty($init, 'isConfigured', {
-	get: isConfigured,
-	enumerable: true
-});
-
-module.exports = $init;
+	options = extend($claimsOptions || {}, _options);
+	return function (req, res, next) {
+		var headerKey = options.headerKey || 'x-claims-ticket'
+		;
+		if (req.claims) {
+			return next();
+		}
+		var ticket = req.headers[headerKey];
+		return claims.parse(extend({ ticket: ticket }, options }, function (err, parsed) {
+			if (err) {
+				throw err;
+			}
+			req.claims = parsed;
+			next();
+		});
+	};
+};
