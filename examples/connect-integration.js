@@ -9,7 +9,7 @@ var claims = require('..')
 connect
 	.use(connect.cookieParser());
 	.use(claims({ options: "asdf" }));
-	.use(function(res, res, next) {
+	.use(function(req, res, next) {
 		// read claims cookie ticket and return parsed claims
 	})
 	.listen(3000);

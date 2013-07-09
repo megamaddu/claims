@@ -3,7 +3,9 @@
 var claims = require('..')
 , ticket = require('./ticket')
 , util = require('util')
+, verify = require('./dummy-encryption').verify
 ;
 
-var parsed = claims(ticket.string);
-console.log(util.inspect(parsed, true, 99));
+claims(ticket.string, { verifier: verify }, function (err, res) {
+	console.log(''.concat((err) ? 'err: ' : 'res: ', util.inspect(err || res, true, 99)));
+});

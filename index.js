@@ -1,25 +1,29 @@
 'use strict';
 
 var claims = require('./lib')
-, extend = require('extend')
+, util = require('util')
+, extend = util._extend
 , _options = {}
 ;
 
-module.exports = function $init($claimsOptions, callback) {
+module.exports = function $init($claimsOptions, callback, _) {
 	var options;
 	if ('string' === typeof $claimsOptions) {
-		options = extend({ ticket: $claimsOptions }, _options);
+		var ticket = $claimsOptions;
+		$claimsOptions = callback;
+		callback = _;
+		options = extend({}, _options, { ticket: $claimsOptions });
 		return claims.parse(options, callback);
 	}
-	options = extend($claimsOptions || {}, _options);
+	options = extend({}, _options, $claimsOptions || {});
 	return function (req, res, next) {
-		var headerKey = options.headerKey || 'x-claims-ticket'
+		var headerKey = options.headerKey || 'claims-ticket'
 		;
 		if (req.claims) {
 			return next();
 		}
 		var ticket = req.headers[headerKey];
-		return claims.parse(extend({ ticket: ticket }, options }, function (err, parsed) {
+		return claims.parse(extend({}, options, { ticket: ticket }), function (err, parsed) {
 			if (err) {
 				throw err;
 			}
