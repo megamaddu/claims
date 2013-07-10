@@ -1,11 +1,11 @@
 'use strict';
 
-var claims = require('..')
+var util = require('util')
 , ticket = require('./ticket')
-, util = require('util')
 , verify = require('./dummy-encryption').verify
+, claims = require('..')({ verifier: verify, claisAuth: { host: 'localhost', port: 8000 } })
 ;
 
-claims(ticket.string, { verifier: verify }, function (err, res) {
+claims(ticket.string, function (err, res) {
 	console.log(''.concat((err) ? 'err: ' : 'res: ', util.inspect(err || res, true, 99)));
 });

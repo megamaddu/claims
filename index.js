@@ -12,10 +12,10 @@ module.exports = function $init($claimsOptions, callback, _) {
 		var ticket = $claimsOptions;
 		$claimsOptions = callback;
 		callback = _;
-		options = extend({}, _options, { ticket: $claimsOptions });
+		options = extend(extend(extend({}, _options), $claimsOptions), { ticket: ticket });
 		return claims.parse(options, callback);
 	}
-	options = extend({}, _options, $claimsOptions || {});
+	options = extend(extend({}, _options), $claimsOptions || {});
 	return function (req, res, next) {
 		var headerKey = options.headerKey || 'claims-ticket'
 		;
@@ -23,7 +23,7 @@ module.exports = function $init($claimsOptions, callback, _) {
 			return next();
 		}
 		var ticket = req.headers[headerKey];
-		return claims.parse(extend({}, options, { ticket: ticket }), function (err, parsed) {
+		return claims.parse(extend(extend({}, options), { ticket: ticket }), function (err, parsed) {
 			if (err) {
 				throw err;
 			}

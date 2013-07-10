@@ -1,1 +1,1 @@
-module.exports = String.fromCharCode(128);
+module.exports = 'mialc'; // String.fromCharCode(128);
