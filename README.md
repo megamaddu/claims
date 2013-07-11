@@ -1,4 +1,4 @@
-claims [![Build Status](https://travis-ci.org/netsteps/claims.png)](http://travis-ci.org/netsteps/claims)
+claims [![Build Status](https://travis-ci.org/netsteps/claims.png?branch=master)](http://travis-ci.org/netsteps/claims)
 ======
 
 A [nodejs](http://nodejs.org/) API client for federated claims-based authorization, including parsing and validating claims tickets and interacting with claims authorities.
