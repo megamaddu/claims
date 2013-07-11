@@ -3,5 +3,5 @@ var preamble = module.exports.preamble = require('./preamble')
 , claimsets = module.exports.claimsets = require('./claimsets')
 , timestamp = module.exports.timestamp = require('./timestamp')
 , signature = module.exports.signature = require('./signature')
-, ticket = module.exports.string = preamble.concat(version, '#').concat(claimsets, ';').concat(timestamp, '|').concat(signature)
+, ticket = module.exports.string = ''.concat(preamble, version, '#', claimsets, ';', timestamp, '|', signature)
 ;

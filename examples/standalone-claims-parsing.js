@@ -8,5 +8,5 @@ var util = require('util')
 
 claims(ticket.string, function (err, res) {
 	if (err) throw err;
-	console.log(util.inspect(err || res, true, 99));
+	console.log(util.inspect(err || res, false, 99));
 });

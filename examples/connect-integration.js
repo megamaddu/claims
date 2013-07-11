@@ -28,7 +28,7 @@ http.get({ port: 3000, headers: { "claims-ticket": ticket.string } }, function(r
     body += chunk;
   });
   res.on('end', function () {
-	  console.log('body: '.concat(require('util').inspect(JSON.parse(body, false, 99))));
+	  console.log(require('util').inspect(JSON.parse(body), false, 99));
 	  server.close();
   });
 });
