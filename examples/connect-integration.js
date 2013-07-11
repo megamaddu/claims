@@ -7,7 +7,7 @@ var connect = require('connect')
 , claims = require('..')
 ;
 
-connect()
+var server = connect()
 	.use(connect.cookieParser())
 	.use(claims({ verifier: verify, claisAuth: { host: 'localhost', port: 8000 } }))
 	.use(function(req, res, next) {
@@ -16,15 +16,19 @@ connect()
 		  'Content-Length': body.length,
 		  'Content-Type': 'application/json'
 		});
-		res.end(body);
+		res.end(body, 'utf8');
 	})
 	.listen(3000)
 	;
 
 http.get({ port: 3000, headers: { "claims-ticket": ticket.string } }, function(res) {
 	var body = '';
+	res.setEncoding('utf8');
   res.on('data', function (chunk) {
     body += chunk;
   });
-  console.log(body);
+  res.on('end', function () {
+	  console.log('body: '.concat(require('util').inspect(JSON.parse(body, false, 99))));
+	  server.close();
+  });
 });
