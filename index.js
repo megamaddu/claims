@@ -6,8 +6,8 @@ var claims = require('./lib')
 ;
 
 module.exports = function $init($claimsOptions) {
-	var options = $claimsOptions;
-	return function (req, res, next) {
+	var options = $claimsOptions
+	, res = function (req, res, next) {
 		if ('string' === typeof req) {
 			/**
 			 * assume claims is being called explicitly -- req = ticket, res = callback
@@ -31,4 +31,22 @@ module.exports = function $init($claimsOptions) {
 			next();
 		});
 	};
+	/**
+	 * support claims.from and claims.parse
+	 */
+	Object.defineProperties(res, {
+		from: {
+			enumerable: true,
+			value: function from(claimsJson, callback) {
+				return claims.from(mash(options, { ticket: claimsJson }), callback);
+			}
+		},
+		parse: {
+			enumerable: true,
+			value: function parse(ticket, callback) {
+				return claims.parse(mash(options, { ticket: ticket }), callback);
+			}
+		}
+	});
+	return res;
 };

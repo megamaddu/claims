@@ -1,5 +1,9 @@
-{
-	"version": "1",
+'use strict';
+
+var ticket = require('../examples/ticket');
+
+module.exports = JSON.stringify({
+	"version": ticket.version,
 	"claimsets": {
 		"0": {
 			"id": 0,
@@ -41,5 +45,8 @@
 			}
 		}
 	},
-	"expiration": "3000-06-30T18:38:36.480Z"
-}
+	"expiration": ticket.timestamp,
+	"ticket": ticket.string,
+	"signature": ticket.signature,
+	"encoded": ''.concat(ticket.claimsets, ';', ticket.timestamp)
+});
