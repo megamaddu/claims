@@ -14,7 +14,7 @@ describe('`util`', function () {
 			expect(original === mash(original)).to.be(false);
 		});
 
-		it('supports any number of arguments and overwrite with right-most args\' values', function () {	
+		it('supports any number of arguments and overwrites with right-most args\' values', function () {	
 			var original = {}
 			, v1 = { x: 1 }
 			, v2 = { y: 2 }

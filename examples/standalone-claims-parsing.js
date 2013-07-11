@@ -7,5 +7,6 @@ var util = require('util')
 ;
 
 claims(ticket.string, function (err, res) {
-	console.log(''.concat((err) ? 'err: ' : 'res: ', util.inspect(err || res, true, 99)));
+	if (err) throw err;
+	console.log(util.inspect(err || res, true, 99));
 });
