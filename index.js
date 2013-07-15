@@ -1,7 +1,7 @@
 'use strict';
 
 var claims = require('./lib')
-, mash = require('./lib/util').mash
+, opex = require('opex')
 , options = {}
 ;
 
@@ -12,7 +12,7 @@ module.exports = function $init($claimsOptions) {
 			/**
 			 * assume claims is being called explicitly -- req = ticket, res = callback
 			 */
-			return claims.parse(mash(options, { ticket: req }), 'function' === typeof res ? res : undefined);
+			return claims.parse(opex(options, { ticket: req }), 'function' === typeof res ? res : undefined);
 		}
 		/**
 		 * assume connect middleware
@@ -23,7 +23,7 @@ module.exports = function $init($claimsOptions) {
 			return next();
 		}
 		var ticket = req.headers[header];
-		return claims.parse(mash(options, { ticket: ticket }), function (err, parsed) {
+		return claims.parse(opex(options, { ticket: ticket }), function (err, parsed) {
 			if (err) {
 				throw err;
 			}
@@ -38,13 +38,13 @@ module.exports = function $init($claimsOptions) {
 		from: {
 			enumerable: true,
 			value: function from(claimsJson, callback) {
-				return claims.from(mash(options, { ticket: claimsJson }), callback);
+				return claims.from(opex(options, { ticket: claimsJson }), callback);
 			}
 		},
 		parse: {
 			enumerable: true,
 			value: function parse(ticket, callback) {
-				return claims.parse(mash(options, { ticket: ticket }), callback);
+				return claims.parse(opex(options, { ticket: ticket }), callback);
 			}
 		}
 	});
