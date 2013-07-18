@@ -25,7 +25,8 @@
   "dependencies": {
     "jsonschema": "~0.3.x",
     "connect": "~2.8.4",
-    "opex": "~0.1.0"
+    "opex": "~0.1.0",
+    "dbc.js": "~1.0.1"
   },
   "devDependencies": {
     "expect.js": "~0.2.x",

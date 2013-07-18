@@ -2,15 +2,13 @@
 
 var util = require('util')
 , ticket = require('./ticket')
-, verify = require('./dummy-encryption').verify
-, claims = require('..')({ verifier: verify, claisAuth: { host: 'localhost', port: 8000 } })
+, encryption_config = require('./encryption/config.json')
+, claims = require('..')({ encryption: encryption_config, claimsAuth: { host: 'localhost', port: 8000 } })
 ;
 
 claims(ticket.string, function (err, res) {
 	if (err) throw err;
-	console.log(util.inspect(err || res, false, 99));
-	debugger;
-	var x = res.verified;
-	var y = res.isValid;
-	debugger;
+	console.log('claims: '.concat(util.inspect(res, false, 99)));
+	console.log('claims.verified: '.concat(res.verified));
+	console.log('claims.isValid: '.concat(res.isValid));
 });

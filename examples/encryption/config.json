@@ -1,0 +1,11 @@
+{
+	"signature": {
+		"keys": {
+			"global": {
+				"privkeyfile": "./examples/encryption/keys/test_digsig.pem",
+				"pubkeyfile": "./examples/encryption/keys/test_digsig.pub",
+				"algorithm": "RSA-SHA1"
+			}
+		}
+	}
+}

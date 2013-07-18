@@ -1,12 +1,14 @@
 'use strict';
 
 var expect = require('expect.js')
-, verify = require('../examples/dummy-encryption').verify
+, encryption_config = require('../examples/encryption/config.json')
 , ticket = require('../examples/ticket')
-, claims = require('../')({ verifier: verify, claisAuth: { host: 'localhost', port: 8000 } })
+, claims = require('../')({ encryption: encryption_config, claisAuth: { host: 'localhost', port: 8000 } })
 ;
 
 claims(ticket.string, function (err, claims) {
+	if (err) throw err;
+	
 	describe('claims logic', function() {
 
 		describe('when `has` is called', function() {

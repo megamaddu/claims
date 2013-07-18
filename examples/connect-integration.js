@@ -3,13 +3,13 @@
 var connect = require('connect')
 , http = require('http')
 , ticket = require('./ticket')
-, verify = require('./dummy-encryption').verify
+, encryption_config = require('./encryption/config.json')
 , claims = require('..')
 ;
 
 var server = connect()
 	.use(connect.cookieParser())
-	.use(claims({ verifier: verify, claisAuth: { host: 'localhost', port: 8000 } }))
+	.use(claims({ encryption: encryption_config, claimsAuth: { host: 'localhost', port: 8000 } }))
 	.use(function(req, res, next) {
 		var body = JSON.stringify(req.claims);
 		res.writeHead(200, {
