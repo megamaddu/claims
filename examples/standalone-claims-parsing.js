@@ -2,8 +2,19 @@
 
 var util = require('util')
 , ticket = require('./ticket')
-, encryption_config = require('./encryption/config.json')
-, claims = require('..')({ encryption: encryption_config, claimsAuth: { host: 'localhost', port: 8000 } })
+, encryptionConfig = require('./encryption/config.json')
+, httpSignatureConfig = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json')
+, ticket = require('./ticket')
+, claims = require('../')({
+		encryption: encryptionConfig,
+		claimsAuth: {
+			host: 'http://localhost:8000',
+			httpSignature: {
+				key: httpSignatureConfig.keys.trustedClientExampleKey.priv,
+				keyId: 'trustedClientExampleKeyId'
+			}
+		}
+	})
 ;
 
 claims(ticket.string, function (err, res) {

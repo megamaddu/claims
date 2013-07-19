@@ -1,9 +1,19 @@
 'use strict';
 
 var expect = require('expect.js')
-, encryption_config = require('../examples/encryption/config.json')
+, encryptionConfig = require('../examples/encryption/config.json')
+, httpSignatureConfig = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json')
 , ticket = require('../examples/ticket')
-, claims = require('../')({ encryption: encryption_config, claisAuth: { host: 'localhost', port: 8000 } })
+, claims = require('../')({ 
+		encryption: encryptionConfig, 
+		claimsAuth: {
+			host: 'http://localhost:8000',
+			httpSignature: {
+				key: httpSignatureConfig.keys.trustedClientExampleKey.priv,
+				keyId: 'trustedClientExampleKeyId'
+			}
+		}
+	})
 ;
 
 claims(ticket.string, function (err, claims) {
@@ -41,60 +51,46 @@ claims(ticket.string, function (err, claims) {
 				expect(claims.get('0.2')).to.be('XY');
 			});
 
-			it('it returns undefined when the claim value does not exist', function() {
-				expect(claims.get('f.1')).to.be(undefined);
+			it('it throws when the claim value does not exist', function() {
+				expect(claims.get.bind(claims, 'f.1', noop)).to.throwError();
 			});
 		});
 
 		describe('when `get` is called with claim id and claim id', function() {
 
 			it('it returns a claim value when it exists', function() {
-				expect(claims.get(0, 2)).to.be('XY');
-				expect(claims.get('0', 2)).to.be('XY');
-				expect(claims.get(0, '2')).to.be('XY');
-				expect(claims.get('0', '2')).to.be('XY');
+				expect(claims.get(0, 2, noop)).to.be('XY');
+				expect(claims.get('0', 2, noop)).to.be('XY');
+				expect(claims.get(0, '2', noop)).to.be('XY');
+				expect(claims.get('0', '2', noop)).to.be('XY');
 			});
 
-			it('it returns undefined when the claim value does not exist', function() {
-				expect(claims.get(0xf, 1)).to.be(undefined);
-				expect(claims.get('f', 1)).to.be(undefined);
-				expect(claims.get(0xf, '1')).to.be(undefined);
-				expect(claims.get('0xf', '1')).to.be(undefined);
+			it('it throws when the claim value does not exist', function() {
+				// will throw until a claims authority service has been set up
+				claims.get(0xf, 1, expectErrECONNREFUSED);
+				claims.get('f', 1, expectErrECONNREFUSED);
+				claims.get(0xf, '1', expectErrECONNREFUSED);
+				claims.get('0xf', '1', expectErrECONNREFUSED);
 			});
 		});
-
-		// describe('when `get` is called with claim id and claim id and resolve is set', function() {
-
-		// 	it('it raeturns a claim value when it is not an embedded value but can be resolved', function() {
-		// 		// resolver not written yet
-		// 	});
-
-		// 	it('it returns undefined when the claim value is not embedded and claims has no resolver', function() {
-		// 		// resolver not written yet	
-		// 	});
-		// });
 
 		describe('when `resolve` is called with claim id and claim id', function() {
 
-			// it('it returns a claim value when it exists and can be resolved', function() {
-			// 	// resolver not written yet
-			// });
-
-			it('it returns undefined when the claim value does not exist', function() {
-				// not an accurate test until a resolver has been set up
-				expect(claims.resolve(0xf, 1)).to.be(undefined);
-				expect(claims.resolve('f', 1)).to.be(undefined);
-				expect(claims.resolve(0xf, '1')).to.be(undefined);
-				expect(claims.resolve('0xf', '1')).to.be(undefined);
+			it('it throws when the claim value does not exist', function() {
+				// will throw until a claims authority service has been set up
+				claims.resolve(0xf, 1, expectErrECONNREFUSED);
+				claims.resolve('f', 1, expectErrECONNREFUSED);
+				claims.resolve(0xf, '1', expectErrECONNREFUSED);
+				claims.resolve('0xf', '1', expectErrECONNREFUSED);
 			});
 
-			it('it returns undefined when the claim has no resolver', function() {
-				// assuming no resolver for now
-				expect(claims.resolve('0', '8')).to.be(undefined);
-				expect(claims.resolve('f', '1')).to.be(undefined);
-				expect(claims.resolve('0', '1')).to.be(undefined);
-				expect(claims.resolve('0xf', '1')).to.be(undefined);
-			});
 		});
 	});
 });
+
+function noop(err, res) {
+}
+
+function expectErrECONNREFUSED(err, res) {
+	expect(err.code).to.be('ECONNREFUSED');
+}

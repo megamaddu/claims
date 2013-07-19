@@ -2,9 +2,19 @@
 
 var expect = require('expect.js')
 , claimsJson = JSON.parse(require('./parser.test.data.js'))
-, encryption_config = require('../examples/encryption/config.json')
+, encryptionConfig = require('../examples/encryption/config.json')
+, httpSignatureConfig = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json')
 , ticket = require('../examples/ticket')
-, claims = require('../')({ encryption: encryption_config, claisAuth: { host: 'localhost', port: 8000 } })
+, claims = require('../')({
+		encryption: encryptionConfig,
+		claimsAuth: {
+			host: 'http://localhost:8000',
+			httpSignature: {
+				key: httpSignatureConfig.keys.trustedClientExampleKey.priv,
+				keyId: 'trustedClientExampleKeyId'
+			}
+		}
+	})
 ;
 
 describe('claims parser', function() {

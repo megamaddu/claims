@@ -3,13 +3,24 @@
 var connect = require('connect')
 , http = require('http')
 , ticket = require('./ticket')
-, encryption_config = require('./encryption/config.json')
-, claims = require('..')
+, encryptionConfig = require('./encryption/config.json')
+, httpSignatureConfig = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json')
+, ticket = require('./ticket')
+, claims = require('../')
 ;
 
 var server = connect()
 	.use(connect.cookieParser())
-	.use(claims({ encryption: encryption_config, claimsAuth: { host: 'localhost', port: 8000 } }))
+	.use(claims({
+		encryption: encryptionConfig,
+		claimsAuth: {
+			host: 'http://localhost:8000',
+			httpSignature: {
+				key: httpSignatureConfig.keys.trustedClientExampleKey.priv,
+				keyId: 'trustedClientExampleKeyId'
+			}
+		}
+	}))
 	.use(function(req, res, next) {
 		var body = JSON.stringify(req.claims);
 		res.writeHead(200, {
