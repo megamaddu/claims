@@ -46,7 +46,8 @@ module.exports = function $init($claimsOptions) {
 			value: function parse(ticket, callback) {
 				return claims.parse(opex(options, { ticket: ticket }), callback);
 			}
-		}
+		},
+		ClaimsClient: { enumerable: true, value: claims.ClaimsClient }
 	});
 	return res;
 };
