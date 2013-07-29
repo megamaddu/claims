@@ -4,7 +4,7 @@ var expect = require('expect.js')
 , encryptionConfig = require('../examples/encryption/config.json')
 , httpSignatureConfig = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json')
 , ticket = require('../examples/ticket')
-, claims = require('../')({ 
+, claims = require('../')({
 		encryption: encryptionConfig, 
 		claimsAuth: {
 			host: 'http://localhost:8000',
