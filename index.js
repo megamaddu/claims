@@ -2,56 +2,55 @@
 
 var claims = require('./lib')
 , opex = require('opex')
-, options = {}
 ;
 
-function $init($claimsOptions, res, next) {
-	if ('undefined' === typeof res && 'undefined' === typeof next) {
-		options = opex(options, $claimsOptions);
-		return $init;
-	}
-	var req = $claimsOptions;	
-	if ('string' === typeof req) {
+module.exports = function $init($claimsOptions) {
+	var options = opex(options, $claimsOptions)
+	, middleware = function(req, res, next) {
+		if ('string' === typeof req) {
+			/**
+			 * assume claims is being called explicitly -- req = ticket, res = callback
+			 */
+			return claims.parse(opex(options, { ticket: req }), 'function' === typeof res ? res : undefined);
+		}
 		/**
-		 * assume claims is being called explicitly -- req = ticket, res = callback
+		 * assume connect middleware
 		 */
-		return claims.parse(opex(options, { ticket: req }), 'function' === typeof res ? res : undefined);
+		var header = options.header || 'claims-ticket'
+		;
+		if (req.claims) {
+			return next();
+		}
+		var ticket = req.headers[header];
+		return claims.parse(opex(options, { ticket: ticket }), function (err, parsed) {
+			if (err) {
+				throw err;
+			}
+			req.claims = parsed;
+			next();
+		});
 	}
-	/**
-	 * assume connect middleware
-	 */
-	var header = options.header || 'claims-ticket'
 	;
-	if (req.claims) {
-		return next();
-	}
-	var ticket = req.headers[header];
-	return claims.parse(opex(options, { ticket: ticket }), function (err, parsed) {
-		if (err) {
-			throw err;
-		}
-		req.claims = parsed;
-		next();
+	/**
+	 * support claims.from and claims.parse
+	 */
+	Object.defineProperties(middleware, {
+		from: {
+			enumerable: true,
+			value: function from(claimsJson, callback) {
+				return claims.from(opex(options, { ticket: claimsJson }), callback);
+			}
+		},
+		parse: {
+			enumerable: true,
+			value: function parse(ticket, callback) {
+				return claims.parse(opex(options, { ticket: ticket }), callback);
+			}
+		},
 	});
-};
+	return middleware;
+}
 
-/**
- * support claims.from and claims.parse
- */
-Object.defineProperties($init, {
-	from: {
-		enumerable: true,
-		value: function from(claimsJson, callback) {
-			return claims.from(opex(options, { ticket: claimsJson }), callback);
-		}
-	},
-	parse: {
-		enumerable: true,
-		value: function parse(ticket, callback) {
-			return claims.parse(opex(options, { ticket: ticket }), callback);
-		}
-	},
+Object.defineProperties(module.exports, {
 	ClaimsClient: { enumerable: true, value: claims.ClaimsClient }
 });
-
-module.exports = $init;
