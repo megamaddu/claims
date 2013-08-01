@@ -27,7 +27,8 @@
     "connect": "~2.8.4",
     "opex": "~0.1.0",
     "dbc.js": "~1.0.1",
-    "webflow": "git://github.com/spicydonuts/webflow.git"
+    "webflow": "git://github.com/spicydonuts/webflow.git",
+    "extend": "~1.1.3"
   },
   "devDependencies": {
     "expect.js": "~0.2.x",

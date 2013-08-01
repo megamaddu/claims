@@ -23,8 +23,13 @@ claims(ticket.string, function (err, claims) {
 	if (err) throw err;
 	
 	describe('claims resolver', function() {
-		it('expands claims', function() {
-			claims.get('12.2', expect('resolved value'));
+
+		/**
+			* passes when a claims-service is running at the address configured above
+			*/
+		it.skip('expands claims', function(done) {
+			claims.uid = '0';
+			claims.get('12.2', expect('resolved value', done));
 		});
 	});
 });

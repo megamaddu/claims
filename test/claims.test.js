@@ -27,65 +27,39 @@ claims(ticket.string, function (err, claims) {
 
 		describe('when `has` is called', function() {
 
-			it('it returns true when all the roles exist', function() {
-				claims.has(0x0, 0x0f, expect(true));
-				claims.has(0x0, 0x02, expect(true));
-				claims.has('0.f', expect(true));
-				claims.has('0.2', expect(true));
+			it('it `returns true` when all the roles exist', function(done) {
+				claims.has('0.f', expect(true, done));
 			});
 
-			it('it returns false when none of the roles exist', function() {
-				claims.has(0xe, 0x02, expect(false));
-				claims.has(0xe, 0x01, expect(false));
-				claims.has('e.2', expect(false));
-				claims.has('e.1', expect(false));
+			it('it `returns false` when none of the roles exist', function(done) {
+				claims.has('e.2', expect(false, done));
 			});
 
-			it('it returns false when one of the roles does not exist', function() {
-				claims.has(0x0, 0x1f, expect(false));
-				claims.has(0xe, 0x09, expect(false));
-				claims.has('0.1f', expect(false));
-				claims.has('e.9', expect(false));
+			it('it `returns false` when one of the roles does not exist', function(done) {
+				claims.has('0.1f', expect(false, done));
 			});
 		});
 
 		describe('when `get` is called with full-claim value reference', function() {
 
-			it('it returns a claim value when it exists', function() {
-				claims.get('0.2', expect('XY'));
+			it('it returns a claim `value` when it exists', function(done) {
+				claims.get('0.2', expect('XY', done));
 			});
 
-			it('it throws when the claim value does not exist', function() {
-				claims.get.bind(claims, 'f.1', expectErr);
-			});
-		});
-
-		describe('when `get` is called with claim id and claim id', function() {
-
-			it('it returns a claim value when it exists', function() {
-				claims.get(0, 2, expect('XY'));
-				claims.get('0', 2, expect('XY'));
-				claims.get(0, '2', expect('XY'));
-				claims.get('0', '2', expect('XY'));
+			it('it `returns undefined` when the claim `rule` does not exist', function(done) {
+				claims.get('f.1', expect(undefined, done));
 			});
 
-			it('it throws when the claim value does not exist', function() {
-				// will throw until a claims authority service has been set up
-				claims.get(0xf, 1, expectErrECONNREFUSED);
-				claims.get('f', 1, expectErrECONNREFUSED);
-				claims.get(0xf, '1', expectErrECONNREFUSED);
-				claims.get('0xf', '1', expectErrECONNREFUSED);
+			it('it `throws` when the claim `value` does not exist and no `resolver` is available', function(done) {
+				claims.get('12.2', expectErrECONNREFUSED(done));
 			});
 		});
 
-		describe('when `resolve` is called with claim id and claim id', function() {
+		describe('when `resolve` is called', function() {
 
-			it('it throws when the claim value does not exist', function() {
+			it('it `throws` when the claim `value` does not exist and no `resolver` is available', function(done) {
 				// will throw until a claims authority service has been set up
-				claims.resolve(0xf, 1, expectErrECONNREFUSED);
-				claims.resolve('f', 1, expectErrECONNREFUSED);
-				claims.resolve(0xf, '1', expectErrECONNREFUSED);
-				claims.resolve('0xf', '1', expectErrECONNREFUSED);
+				claims.resolve('f.1', expectErrECONNREFUSED(done));
 			});
 
 		});

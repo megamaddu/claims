@@ -3,23 +3,33 @@
 var expect = require('expect.js')
 ;
 
-function expectToBe(val) {
+function expectToBe(val, done) {
 	return function(err, res) {
-		ok(err, res);
+		ok()(err, res);
 		expect(res).to.be(val);
+		return done && done();
 	}
 }
 
-function ok(err, res) {
-	expect(err).to.not.be.ok();
+function ok(done) {
+	return function(err) {
+		expect(err).to.not.be.ok();
+		return done && done();
+	}
 }
 
-function expectErr(err, res) {
-	expect(err).to.be.ok();
+function expectErr(done) {
+	return function(err) {
+		expect(err).to.be.ok();
+		return done && done();
+	}
 }
 
-function expectErrECONNREFUSED(err, res) {
-	expect(err.code).to.be('ECONNREFUSED');
+function expectErrECONNREFUSED(done) {
+	return function(err) {
+		expect(err.code).to.be('ECONNREFUSED');
+		return done && done();
+	}
 }
 
 module.exports.expectToBe = expectToBe;
