@@ -1,10 +1,14 @@
 'use strict';
 
-var expect = require('expect.js')
-, encryptionConfig = require('../examples/encryption/config.json')
-, httpSignatureConfig = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json')
-, ticket = require('../examples/ticket')
-, claims = require('../')({
+var helpers             = require('./test.helpers')
+, expect                = helpers.expectToBe
+, ok                    = helpers.ok
+, expectErr             = helpers.expectErr
+, expectErrECONNREFUSED = helpers.expectErrECONNREFUSED
+, encryptionConfig      = helpers.encryptionConfig
+, httpSignatureConfig   = helpers.httpSignatureConfig
+, ticket                = helpers.ticket
+, claims                = require('../')({
 		encryption: encryptionConfig, 
 		claimsAuth: {
 			host: 'http://localhost:8000',
@@ -24,45 +28,45 @@ claims(ticket.string, function (err, claims) {
 		describe('when `has` is called', function() {
 
 			it('it returns true when all the roles exist', function() {
-				expect(claims.has(0x0, 0x0f)).to.be(true);
-				expect(claims.has(0x0, 0x02)).to.be(true);
-				expect(claims.has('0.0f')).to.be(true);
-				expect(claims.has('0.02')).to.be(true);
+				claims.has(0x0, 0x0f, expect(true));
+				claims.has(0x0, 0x02, expect(true));
+				claims.has('0.f', expect(true));
+				claims.has('0.2', expect(true));
 			});
 
 			it('it returns false when none of the roles exist', function() {
-				expect(claims.has(0xe, 0x02)).to.be(false);
-				expect(claims.has(0xe, 0x01)).to.be(false);
-				expect(claims.has('e.2')).to.be(false);
-				expect(claims.has('e.1')).to.be(false);
+				claims.has(0xe, 0x02, expect(false));
+				claims.has(0xe, 0x01, expect(false));
+				claims.has('e.2', expect(false));
+				claims.has('e.1', expect(false));
 			});
 
 			it('it returns false when one of the roles does not exist', function() {
-				expect(claims.has(0x0, 0x1f)).to.be(false);
-				expect(claims.has(0xe, 0x09)).to.be(false);
-				expect(claims.has('0.1f')).to.be(false);
-				expect(claims.has('e.9')).to.be(false);
+				claims.has(0x0, 0x1f, expect(false));
+				claims.has(0xe, 0x09, expect(false));
+				claims.has('0.1f', expect(false));
+				claims.has('e.9', expect(false));
 			});
 		});
 
 		describe('when `get` is called with full-claim value reference', function() {
 
 			it('it returns a claim value when it exists', function() {
-				expect(claims.get('0.2')).to.be('XY');
+				claims.get('0.2', expect('XY'));
 			});
 
 			it('it throws when the claim value does not exist', function() {
-				expect(claims.get.bind(claims, 'f.1', noop)).to.throwError();
+				claims.get.bind(claims, 'f.1', expectErr);
 			});
 		});
 
 		describe('when `get` is called with claim id and claim id', function() {
 
 			it('it returns a claim value when it exists', function() {
-				expect(claims.get(0, 2, noop)).to.be('XY');
-				expect(claims.get('0', 2, noop)).to.be('XY');
-				expect(claims.get(0, '2', noop)).to.be('XY');
-				expect(claims.get('0', '2', noop)).to.be('XY');
+				claims.get(0, 2, expect('XY'));
+				claims.get('0', 2, expect('XY'));
+				claims.get(0, '2', expect('XY'));
+				claims.get('0', '2', expect('XY'));
 			});
 
 			it('it throws when the claim value does not exist', function() {
@@ -87,10 +91,3 @@ claims(ticket.string, function (err, claims) {
 		});
 	});
 });
-
-function noop(err, res) {
-}
-
-function expectErrECONNREFUSED(err, res) {
-	expect(err.code).to.be('ECONNREFUSED');
-}
