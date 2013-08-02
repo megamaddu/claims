@@ -2,6 +2,7 @@
 
 var claims = require('./lib')
 , opex = require('opex')
+, pkg = require('./package')
 ;
 
 module.exports = function $init($claimsOptions) {
@@ -52,5 +53,6 @@ module.exports = function $init($claimsOptions) {
 }
 
 Object.defineProperties(module.exports, {
-	ClaimsClient: { enumerable: true, value: claims.ClaimsClient }
+	ClaimsClient: { enumerable: true, value: claims.ClaimsClient },
+	version: { enumerable: true, value: pkg.version }
 });
