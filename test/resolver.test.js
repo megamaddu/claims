@@ -27,8 +27,9 @@ claims(ticket.string, function (err, claims) {
 		/**
 			* passes when a claims-service is running at the address configured above
 			*/
-		it.skip('expands claims', function(done) {
+		it('expands claims', function(done) {
 			claims.uid = '0';
+			debugger;
 			claims.get('12.2', expect('resolved value', done));
 		});
 	});
