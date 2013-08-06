@@ -29,7 +29,6 @@ claims(ticket.string, function (err, claims) {
 			*/
 		it('expands claims', function(done) {
 			claims.uid = '0';
-			debugger;
 			claims.get('12.2', expect('resolved value', done));
 		});
 	});
