@@ -12,8 +12,8 @@ var helpers           = require('./test.helpers')
 		claimsAuth: {
 			host: 'http://localhost:3000',
 			httpSignature: {
-				key: httpSignatureConfig.keys.trustedClientExampleKey.priv,
-				keyId: 'trustedClientExampleKeyId'
+				key: helpers.key,
+				keyId: helpers.tcid
 			}
 		}
 	})

@@ -11,7 +11,7 @@
 				"id": "/claimsets/claimset",
 				"properties": {
 					"id": {
-						"type": "integer",
+						"type": "string",
 						"required": true
 					},
 					"claims": {
@@ -21,7 +21,7 @@
 							"id": "/claimsets/claim",
 							"properties": {
 								"id": {
-									"type": "integer",
+									"type": "string",
 									"required": true
 								},
 								"kind": {
