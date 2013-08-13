@@ -7,7 +7,6 @@ var expect            = require('expect.js')
 , ok                  = helpers.ok
 , expectErr           = helpers.expectErr
 , encryptionConfig    = helpers.encryptionConfig
-, httpSignatureConfig = helpers.httpSignatureConfig
 , ticket              = helpers.ticket
 , claims              = require('../')({
 		encryption: encryptionConfig,

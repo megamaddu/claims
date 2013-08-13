@@ -6,7 +6,6 @@ var helpers             = require('./test.helpers')
 , expectErr             = helpers.expectErr
 , expectErrECONNREFUSED = helpers.expectErrECONNREFUSED
 , encryptionConfig      = helpers.encryptionConfig
-, httpSignatureConfig   = helpers.httpSignatureConfig
 , ticket                = helpers.ticket
 , claims                = require('../')({
 		encryption: encryptionConfig, 

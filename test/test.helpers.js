@@ -37,7 +37,6 @@ module.exports.expectToBe            = expectToBe;
 module.exports.ok                    = ok;
 module.exports.expectErr             = expectErr;
 module.exports.expectErrECONNREFUSED = expectErrECONNREFUSED;
-module.exports.httpSignatureConfig   = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json');
 module.exports.ticket                = require('../examples/ticket');
 module.exports.key                   = keys('test').priv;
 module.exports.tcid                  = 'test';
