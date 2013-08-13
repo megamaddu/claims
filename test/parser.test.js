@@ -1,17 +1,21 @@
 'use strict';
 
-var expect = require('expect.js')
-, claimsJson = JSON.parse(require('./parser.test.data.js'))
-, encryptionConfig = require('../examples/encryption/config.json')
-, httpSignatureConfig = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json')
-, ticket = require('../examples/ticket')
-, claims = require('../')({
+var expect            = require('expect.js')
+, claimsJson          = JSON.parse(require('./parser.test.data.js'))
+, helpers             = require('./test.helpers')
+// , expect              = helpers.expectToBe
+, ok                  = helpers.ok
+, expectErr           = helpers.expectErr
+, encryptionConfig    = helpers.encryptionConfig
+, httpSignatureConfig = helpers.httpSignatureConfig
+, ticket              = helpers.ticket
+, claims              = require('../')({
 		encryption: encryptionConfig,
 		claimsAuth: {
 			host: 'http://localhost:8000',
 			httpSignature: {
-				key: httpSignatureConfig.keys.trustedClientExampleKey.priv,
-				keyId: 'trustedClientExampleKeyId'
+				key: helpers.key,
+				keyId: helpers.tcid
 			}
 		}
 	})

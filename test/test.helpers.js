@@ -1,8 +1,7 @@
 'use strict';
 
 var expect = require('expect.js')
-, fs       = require('fs')
-, path     = require('path')
+, keys = require('key-manager')('test')
 ;
 
 function expectToBe(val, done) {
@@ -38,8 +37,16 @@ module.exports.expectToBe            = expectToBe;
 module.exports.ok                    = ok;
 module.exports.expectErr             = expectErr;
 module.exports.expectErrECONNREFUSED = expectErrECONNREFUSED;
-module.exports.encryptionConfig      = require('../examples/encryption/config.json');
 module.exports.httpSignatureConfig   = require('../node_modules/webflow/examples/trusted_client/trusted_client_config.json');
 module.exports.ticket                = require('../examples/ticket');
-module.exports.key                   = fs.readFileSync(path.join(process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE, '/.ns/dev/ns/claims-authority/key'), { encoding: 'utf8' });
-module.exports.tcid                  = '/dev/ns/claims-authority';
+module.exports.key                   = keys('test').priv;
+module.exports.tcid                  = 'test';
+module.exports.encryptionConfig      = {
+	signature: {
+		keys: {
+			global: {
+				pubkey: keys('claims-authority').pub
+			}
+		}
+	}
+};

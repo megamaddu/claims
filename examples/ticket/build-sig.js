@@ -2,7 +2,15 @@
 
 var ticket = require('./')
 , encoded = ''.concat(ticket.claimsets, ';', ticket.timestamp)
-, encryption = require('../encryption/config.json')
+, encryption = {
+	signature: {
+		keys: {
+			global: {
+				privkey: require('fs').readFileSync(require('path').join(process.env.HOME, '/.ns/dev/ns/claims-authority/key'), { encoding: 'utf8' })
+			}
+		}
+	}
+}
 , crypto = require('../../lib/encryption')
 ;
 crypto(encryption);

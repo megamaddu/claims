@@ -3,6 +3,7 @@
 var claims = require('./lib')
 , opex = require('opex')
 , pkg = require('./package')
+, ResourceError = require('webflow').ResourceError
 ;
 
 module.exports = function $init($claimsOptions) {
@@ -28,7 +29,10 @@ module.exports = function $init($claimsOptions) {
 				throw err;
 			}
 			req.claims = parsed;
-			next();
+			if ('claims' in req && req.claims.isValid === true) {
+				return next();
+			}
+			throw ResourceError.forbidden();
 		});
 	}
 	;
